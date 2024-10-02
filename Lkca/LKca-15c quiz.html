@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="quizes.css">
+
+</head>
+<body>
+    <main></main>
+        <h1>Quiz Page</h1>
+        <div class="quiz-container">
+            <div class="question-box">
+                <h2>1. How many light years is (LkCa 15 c) planet from earth ?</h2>
+                <ul>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. 516 light-years')">A. 115 light-years </li>
+                    <li class="choice" onclick="selectAnswer(this, 'correct')">B. 516 light-years</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. 516 light-years')">C. 840 light-years</li>
+                </ul>
+            </div>
+
+            <div class="question-box">
+                <h2>2.When was (LkCa 15 c) planet discovered ?</h2>
+                <ul>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. 2015')">A. 2018</li>
+                    <li class="choice" onclick="selectAnswer(this, 'correct')">B. 2015</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. 2015')">C. 2011</li>
+                </ul>
+            </div>
+
+            <div class="question-box">
+                <h2>3. How many days does (LkCa 15 c) planet take to complete one orbit around its star </h2>
+                <ul>
+                    <li class="choice" onclick="selectAnswer(this, 'correct')">A. 365 days</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'A. 365 days')">A. 284 days </li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'A. 365 days')">C. 489 days </li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'A. 365 days')">D. 320 days   </li>
+                </ul>
+            </div>
+
+        <div id="score" style="display: none;">Your Score: <span id="score-value">0</span></div>
+    </main>
+
+    <script>
+        let score = 0; // Initialize score
+        let questionCount = 0; // Initialize question counter
+
+        function selectAnswer(element, status, correctAnswer) {
+            const choices = element.parentNode.querySelectorAll('.choice');
+
+            choices.forEach(choice => {
+                choice.style.pointerEvents = 'none'; // Disable further clicks
+                if (choice !== element) {
+                    choice.style.backgroundColor = 'red';
+                    choice.innerHTML += ' &#10060;'; // Wrong sign
+                }
+            });
+
+            if (status === 'correct') {
+                element.style.backgroundColor = 'green';
+                element.innerHTML += ' &#10004;'; // Correct mark
+                score++; // Increase score
+            } else {
+                element.style.backgroundColor = 'red';
+                element.innerHTML += ' &#10060;'; // Wrong sign
+                
+                // Show correct answer with message
+                const correctChoice = Array.from(choices).find(choice => choice.textContent.includes(correctAnswer));
+                if (correctChoice) {
+                    correctChoice.style.backgroundColor = 'blue';
+                    correctChoice.innerHTML += ' &#10004;'; // Correct mark
+                    correctChoice.innerHTML += ' (Correct Answer)'; // Message
+                }
+            }
+
+            questionCount++; // Increment question counter
+
+            // Display score after the last question
+            if (questionCount === 7) { // Change this number if you add more questions
+                document.getElementById('score-value').textContent = score;
+                document.getElementById('score').style.display = 'block';
+            }
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Page</title>
+    <link rel="stylesheet" href="quizes.css">
+</head>
+<body>
+
+    <main>
+        <h1>Quiz Page</h1>
+        <div class="quiz-container">
+            <div class="question-box">
+                <h2>1. What is the capital of France?</h2>
+                <ul>
+                    <li class="choice" onclick="selectAnswer(this, 'correct')">A. Paris</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'A. Paris')">B. London</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'A. Paris')">C. Berlin</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'A. Paris')">D. Madrid</li>
+                </ul>
+            </div>
+
+            <div class="question-box">
+                <h2>2. What is 2 + 2?</h2>
+                <ul>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. 4')">A. 3</li>
+                    <li class="choice" onclick="selectAnswer(this, 'correct')">B. 4</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. 4')">C. 5</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. 4')">D. 6</li>
+                </ul>
+            </div>
+
+            <div class="question-box">
+                <h2>3. Which planet is known as the Red Planet?</h2>
+                <ul>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. Mars')">A. Earth</li>
+                    <li class="choice" onclick="selectAnswer(this, 'correct')">B. Mars</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. Mars')">C. Jupiter</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. Mars')">D. Venus</li>
+                </ul>
+            </div>
+
+            <div class="question-box">
+                <h2>4. Who wrote 'Romeo and Juliet'?</h2>
+                <ul>
+                    <li class="choice" onclick="selectAnswer(this, 'correct')">A. William Shakespeare</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'A. William Shakespeare')">B. Mark Twain</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'A. William Shakespeare')">C. Charles Dickens</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'A. William Shakespeare')">D. Jane Austen</li>
+                </ul>
+            </div>
+
+            <div class="question-box">
+                <h2>5. What is the largest ocean on Earth?</h2>
+                <ul>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. Pacific Ocean')">A. Atlantic Ocean</li>
+                    <li class="choice" onclick="selectAnswer(this, 'correct')">B. Pacific Ocean</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. Pacific Ocean')">C. Indian Ocean</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. Pacific Ocean')">D. Arctic Ocean</li>
+                </ul>
+            </div>
+
+            <div class="question-box">
+                <h2>6. What is the chemical symbol for water?</h2>
+                <ul>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'C. H2O')">A. O2</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'C. H2O')">B. H2O2</li>
+                    <li class="choice" onclick="selectAnswer(this, 'correct')">C. H2O</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'C. H2O')">D. CO2</li>
+                </ul>
+            </div>
+
+            <div class="question-box">
+                <h2>7. What is the smallest prime number?</h2>
+                <ul>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. 2')">A. 1</li>
+                    <li class="choice" onclick="selectAnswer(this, 'correct')">B. 2</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. 2')">C. 3</li>
+                    <li class="choice" onclick="selectAnswer(this, 'wrong', 'B. 2')">D. 4</li>
+                </ul>
+            </div>
+        </div>
+        <div id="score" style="display: none;">Your Score: <span id="score-value">0</span></div>
+    </main>
+
+    <script>
+        let score = 0; // Initialize score
+        let questionCount = 0; // Initialize question counter
+
+        function selectAnswer(element, status, correctAnswer) {
+            const choices = element.parentNode.querySelectorAll('.choice');
+
+            choices.forEach(choice => {
+                choice.style.pointerEvents = 'none'; // Disable further clicks
+                if (choice !== element) {
+                    choice.style.backgroundColor = 'red';
+                    choice.innerHTML += ' &#10060;'; // Wrong sign
+                }
+            });
+
+            if (status === 'correct') {
+                element.style.backgroundColor = 'green';
+                element.innerHTML += ' &#10004;'; // Correct mark
+                score++; // Increase score
+            } else {
+                element.style.backgroundColor = 'red';
+                element.innerHTML += ' &#10060;'; // Wrong sign
+                
+                // Show correct answer with message
+                const correctChoice = Array.from(choices).find(choice => choice.textContent.includes(correctAnswer));
+                if (correctChoice) {
+                    correctChoice.style.backgroundColor = 'blue';
+                    correctChoice.innerHTML += ' &#10004;'; // Correct mark
+                    correctChoice.innerHTML += ' (Correct Answer)'; // Message
+                }
+            }
+
+            questionCount++; // Increment question counter
+
+            // Display score after the last question
+            if (questionCount === 7) { // Change this number if you add more questions
+                document.getElementById('score-value').textContent = score;
+                document.getElementById('score').style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
